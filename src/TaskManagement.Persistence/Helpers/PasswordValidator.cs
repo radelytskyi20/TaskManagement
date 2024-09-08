@@ -12,9 +12,9 @@ namespace TaskManagement.Persistence.Helpers
     /// </summary>
     public class PasswordValidator : IPasswordValidator
     {
-        private readonly PasswordOptions _passwordOptions;
+        private readonly PasswordComplexityOptions _passwordOptions;
 
-        public PasswordValidator(IOptions<PasswordOptions> passwordOptions)
+        public PasswordValidator(IOptions<PasswordComplexityOptions> passwordOptions)
         {
             _passwordOptions = passwordOptions.Value;
         }

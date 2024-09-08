@@ -9,16 +9,16 @@ namespace TaskManagement.Persistence.Tests
     [TestFixture]
     public class PasswordValidatorTests
     {
-        private Mock<IOptions<PasswordOptions>> _passwordOptionsMock;
+        private Mock<IOptions<PasswordComplexityOptions>> _passwordOptionsMock;
 
         [SetUp]
         public void Setup()
         {
-            _passwordOptionsMock = new Mock<IOptions<PasswordOptions>>();
+            _passwordOptionsMock = new Mock<IOptions<PasswordComplexityOptions>>();
         }
 
         [Test, TestCaseSource(nameof(Data))]
-        public void ValidateTest(string password, PasswordOptions passwordOptions, bool expectedSucceeded, List<string> expectedErrors)
+        public void ValidateTest(string password, PasswordComplexityOptions passwordOptions, bool expectedSucceeded, List<string> expectedErrors)
         {
             //Arrange
             _passwordOptionsMock.Setup(p => p.Value).Returns(passwordOptions);
@@ -41,7 +41,7 @@ namespace TaskManagement.Persistence.Tests
                 new object[]
                 {
                     "abc", //password
-                    new PasswordOptions //passwordOptions
+                    new PasswordComplexityOptions //passwordOptions
                     {
                         MinimumLength = 6
                     },
@@ -51,7 +51,7 @@ namespace TaskManagement.Persistence.Tests
                 new object[]
                 {
                     "password",
-                    new PasswordOptions
+                    new PasswordComplexityOptions
                     {
                         RequireUppercase = true
                     },
@@ -61,7 +61,7 @@ namespace TaskManagement.Persistence.Tests
                 new object[]
                 {
                     "PASSWORD",
-                    new PasswordOptions
+                    new PasswordComplexityOptions
                     {
                         RequireLowercase = true
                     },
@@ -71,7 +71,7 @@ namespace TaskManagement.Persistence.Tests
                 new object[]
                 {
                     "Password123",
-                    new PasswordOptions
+                    new PasswordComplexityOptions
                     {
                         RequireSpecialCharacter = true
                     },
@@ -81,7 +81,7 @@ namespace TaskManagement.Persistence.Tests
                 new object[]
                 {
                     "Password123/$/",
-                    new PasswordOptions
+                    new PasswordComplexityOptions
                     {
                         MinimumLength = 6,
                         RequireUppercase = true,
