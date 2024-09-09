@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.Domain.Constants
+﻿namespace TaskManagement.Domain.Constants.Query
 {
     /// <summary>
     /// Constants for sorting task parameters in query strings.

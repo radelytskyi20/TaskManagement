@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.Domain.Constants
+﻿namespace TaskManagement.Domain.Constants.Data
 {
     public static class ConnectionNames
     {

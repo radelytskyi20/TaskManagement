@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.Domain.Constants
+﻿namespace TaskManagement.Domain.Constants.Logging
 {
     public static class LoggingConstants
     {

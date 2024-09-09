@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using TaskManagement.Domain.Constants;
+using TaskManagement.Domain.Constants.Auth;
+using TaskManagement.Domain.Constants.Logging;
+using TaskManagement.Domain.Constants.User;
 using TaskManagement.Domain.Contracts.Auth;
 using TaskManagement.Domain.Contracts.Logging;
 using TaskManagement.Domain.Contracts.User;
@@ -62,7 +64,7 @@ namespace TaskManagement.Api.Controllers
                 var serviceResult = await _userManagerService.LoginAsync(request.Identifier, request.Password, cancellationToken);
                 if (serviceResult.Succeeded)
                 {
-                    HttpContext.Response.Cookies.Append(JwtConstants.ACCESS_TOKEN_COOKIE, serviceResult.Payload!.accessToken,
+                    HttpContext.Response.Cookies.Append(JwtConstants.AccessTokenCookie, serviceResult.Payload!.accessToken,
                         new CookieOptions
                         {
                             Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpriesMinutes)

@@ -1,4 +1,4 @@
-﻿using TaskManagement.Domain.Constants;
+﻿using TaskManagement.Domain.Constants.Query;
 
 namespace TaskManagement.Domain.Contracts.Task
 {

@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.Domain.Constants
+﻿namespace TaskManagement.Domain.Constants.Helpers
 {
     public static class PasswordValidatonErrors
     {

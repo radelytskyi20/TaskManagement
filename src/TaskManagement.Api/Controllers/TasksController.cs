@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskManagement.Domain.Constants;
+using TaskManagement.Domain.Constants.Logging;
 using TaskManagement.Domain.Contracts.Logging;
 using TaskManagement.Domain.Contracts.Task;
 using TaskManagement.Persistence.Extensions;

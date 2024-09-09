@@ -8,7 +8,7 @@ using TaskPriority = TaskManagement.Domain.Entities.TaskPriority;
 using TaskManagement.Persistence.QueryObjects.Task;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.Persistence.Extensions;
-using TaskManagement.Domain.Constants;
+using TaskManagement.Domain.Constants.Task;
 
 namespace TaskManagement.Service.Implementations
 {

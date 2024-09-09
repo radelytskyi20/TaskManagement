@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.Domain.Constants
+﻿namespace TaskManagement.Domain.Constants.Task
 {
     /// <summary>
     /// Contains error messages for the TaskManagerService.

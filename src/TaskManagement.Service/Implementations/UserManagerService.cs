@@ -1,4 +1,4 @@
-﻿using TaskManagement.Domain.Constants;
+﻿using TaskManagement.Domain.Constants.User;
 using TaskManagement.Domain.Contracts.Auth;
 using TaskManagement.Domain.Contracts.Common;
 using TaskManagement.Domain.Interfaces;
