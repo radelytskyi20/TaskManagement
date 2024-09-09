@@ -26,6 +26,7 @@ namespace TaskManagement.Persistence
 
             //Repositories
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITaskRepository, TaskRepository>();
 
             return services;
         }
