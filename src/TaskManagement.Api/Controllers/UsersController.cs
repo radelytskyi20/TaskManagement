@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using TaskManagement.Domain.Constants;
 using TaskManagement.Domain.Contracts.Auth;
+using TaskManagement.Domain.Contracts.Logging;
 using TaskManagement.Domain.Contracts.User;
+using TaskManagement.Persistence.Extensions;
 using TaskManagement.Service.Interfaces;
 
 namespace TaskManagement.Api.Controllers
@@ -15,11 +17,14 @@ namespace TaskManagement.Api.Controllers
     {
         private readonly IUserManagerService _userManagerService;
         private readonly JwtOptions _jwtOptions;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUserManagerService userManagerService, IOptions<JwtOptions> jwtOptions)
+        public UsersController(IUserManagerService userManagerService, IOptions<JwtOptions> jwtOptions,
+            ILogger<UsersController> logger)
         {
             _userManagerService = userManagerService;
             _jwtOptions = jwtOptions.Value;
+            _logger = logger;
         }
 
         [HttpPost(UsersControllerRoutes.Register)]
@@ -37,7 +42,15 @@ namespace TaskManagement.Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                _logger.LogError(new LogEntry()
+                    .WithClass(nameof(UsersController))
+                    .WithMethod(nameof(Registration))
+                    .WithComment(ex.ToString())
+                    .WithOperation(UsersControllerRoutes.Register)
+                    .WithParametres($"{nameof(request.Username)}: {request.Username} {nameof(request.Email)}: {request.Email}")
+                    .AsString());
+
+                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
             }
         }
 
@@ -62,7 +75,15 @@ namespace TaskManagement.Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                _logger.LogError(new LogEntry()
+                    .WithClass(nameof(UsersController))
+                    .WithMethod(nameof(Login))
+                    .WithComment(ex.ToString())
+                    .WithOperation(UsersControllerRoutes.Login)
+                    .WithParametres($"{nameof(request.Identifier)}: {request.Identifier}")
+                    .AsString());
+
+                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
             }
         }
     }
