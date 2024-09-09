@@ -16,17 +16,15 @@ namespace TaskManagement.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task CreateAsync(TaskEntity task, CancellationToken cancellationToken = default)
+        public async Task<Guid> CreateAsync(TaskEntity task, CancellationToken cancellationToken = default)
         {
             await _dbContext.Tasks.AddAsync(task, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
+            return task.Id;
         }
 
-        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task DeleteAsync(TaskEntity task, CancellationToken cancellationToken = default)
         {
-            var task = await _dbContext.Tasks.FindAsync(id, cancellationToken);
-            if (task is null) return;
-
             _dbContext.Tasks.Remove(task);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
@@ -38,7 +36,7 @@ namespace TaskManagement.Persistence.Repositories
         /// <returns>An <see cref="IQueryable{TaskEntity}"/> representing the filtered, sorted, and paginated tasks.</returns>
         public IQueryable<TaskEntity> GetAll(SortFilterTaskOptions options)
         {
-            var query = _dbContext.Tasks.Include(task => task.User).AsNoTracking();
+            var query = _dbContext.Tasks.AsNoTracking();
 
             // Apply filter options (e.g., status, priority, user id)
             query = options.FilterOptions.Aggregate(query, (current, filterOptions) =>
@@ -68,8 +66,6 @@ namespace TaskManagement.Persistence.Repositories
         public async Task<TaskEntity?> GetOneAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _dbContext.Tasks
-                .AsNoTracking()
-                .Include(task => task.User)
                 .FirstOrDefaultAsync(task => task.Id == id, cancellationToken);
         }
 

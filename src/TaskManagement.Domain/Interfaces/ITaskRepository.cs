@@ -5,9 +5,9 @@ namespace TaskManagement.Domain.Interfaces
 {
     public interface ITaskRepository
     {
-        Task CreateAsync(TaskEntity task, CancellationToken cancellationToken = default);
+        Task<Guid> CreateAsync(TaskEntity task, CancellationToken cancellationToken = default);
         Task UpdateAsync(TaskEntity task, CancellationToken cancellationToken = default);
-        Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+        Task DeleteAsync(TaskEntity task, CancellationToken cancellationToken = default);
         Task<TaskEntity?> GetOneAsync(Guid id, CancellationToken cancellationToken = default);
         
         /// <summary>
