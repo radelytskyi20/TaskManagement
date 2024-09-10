@@ -17,8 +17,5 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       
-      - name: Run Persistence Tests
-        run: dotnet test TaskManagement.Persistence.Tests/TaskManagement.Persistence.Tests.csproj --configuration Release --restore
-      
-      - name: Run Service Tests
-        run: dotnet test TaskManagement.Service.Tests/TaskManagement.Service.Tests.csproj --configuration Release --restore
+      - name: Test
+        run: dotnet test ./TaskManagemet.sln --configuration Release --restore
