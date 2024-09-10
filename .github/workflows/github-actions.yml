@@ -13,10 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup dotnet ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
       
-      - name: Test
-          run: dotnet test TaskManagement.Persistence.Tests/TaskManagement.Persistence.Tests.csproj --configuration Release --restore
-          run: dotnet test TaskManagement.Service.Tests/TaskManagement.Service.Tests.csproj --configuration Release --restore
+      - name: Run Persistence Tests
+        run: dotnet test TaskManagement.Persistence.Tests/TaskManagement.Persistence.Tests.csproj --configuration Release --restore
+      
+      - name: Run Service Tests
+        run: dotnet test TaskManagement.Service.Tests/TaskManagement.Service.Tests.csproj --configuration Release --restore
