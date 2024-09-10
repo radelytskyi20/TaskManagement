@@ -53,11 +53,13 @@ namespace TaskManagement.Service.Tests
             };
 
             //Act
-            var actualTaskId = await taskManagerService.CreateAsync(task.Title, task.Description, (int)task.Status, (int)task.Priority,
+            var addTaskResult = await taskManagerService.CreateAsync(task.Title, task.Description, (int)task.Status, (int)task.Priority,
                 task.DueDate, task.UserId);
 
+            AssertPayloadResult(addTaskResult);
+
             //Assert
-            var getOneResult = await taskManagerService.GetOneAsync(actualTaskId, task.UserId);
+            var getOneResult = await taskManagerService.GetOneAsync(addTaskResult.Payload, task.UserId);
             AssertPayloadResult(getOneResult);
             AssertsObjectsAreEqual(task.MapToDto(), getOneResult.Payload!);
         }
@@ -81,8 +83,11 @@ namespace TaskManagement.Service.Tests
             };
 
             //Act
-            var taskId = await taskManagerService.CreateAsync(task.Title, task.Description, (int)task.Status,
+            var addTaskResult = await taskManagerService.CreateAsync(task.Title, task.Description, (int)task.Status,
                 (int)task.Priority, task.DueDate, task.UserId);
+
+            AssertPayloadResult(addTaskResult);
+            var taskId = addTaskResult.Payload;
 
             task.Title = "Updated Task";
             task.Description = "Updated Description";
@@ -120,8 +125,11 @@ namespace TaskManagement.Service.Tests
             };
 
             //Act
-            var taskId = await taskManagerService.CreateAsync(task.Title, task.Description, (int)task.Status,
+            var addTaskResult = await taskManagerService.CreateAsync(task.Title, task.Description, (int)task.Status,
                 (int)task.Priority, task.DueDate, task.UserId);
+
+            AssertPayloadResult(addTaskResult);
+            var taskId = addTaskResult.Payload;
 
             //check that task exists in database
             var getOneResult = await taskManagerService.GetOneAsync(taskId, task.UserId);

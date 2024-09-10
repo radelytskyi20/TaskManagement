@@ -24,7 +24,7 @@ namespace TaskManagement.Service.Implementations
         }
 
         /// <inheritdoc />
-        public async Task<Guid> CreateAsync(string title, string? description, int? status, int? priority, DateTime? dueDate,
+        public async Task<PayloadResult<Guid>> CreateAsync(string title, string? description, int? status, int? priority, DateTime? dueDate,
             Guid userId, CancellationToken cancellationToken = default)
         {
             var task = new TaskEntity
@@ -37,7 +37,8 @@ namespace TaskManagement.Service.Implementations
                 UserId = userId
             };
 
-            return await _taskRepository.CreateAsync(task, cancellationToken);
+            var taskId = await _taskRepository.CreateAsync(task, cancellationToken);
+            return PayloadResult<Guid>.Success(taskId);
         }
 
         /// <inheritdoc />

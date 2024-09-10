@@ -52,7 +52,7 @@ namespace TaskManagement.Api.Controllers
                     .WithParametres($"{nameof(request.Username)}: {request.Username} {nameof(request.Email)}: {request.Email}")
                     .AsString());
 
-                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+                return StatusCode(StatusCodes.Status500InternalServerError, LoggingConstants.InternalServerErrorMessage);
             }
         }
 
@@ -85,7 +85,7 @@ namespace TaskManagement.Api.Controllers
                     .WithParametres($"{nameof(request.Identifier)}: {request.Identifier}")
                     .AsString());
 
-                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+                return StatusCode(StatusCodes.Status500InternalServerError, LoggingConstants.InternalServerErrorMessage);
             }
         }
     }

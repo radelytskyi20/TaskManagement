@@ -28,10 +28,10 @@ namespace TaskManagement.Api.Controllers
         {
             try
             {
-                await _taskManagerService.CreateAsync(request.Title, request.Description, request.Status,
-                request.Priority, request.DueDate, UserId);
+                var addResult =  await _taskManagerService.CreateAsync(request.Title, request.Description, request.Status,
+                    request.Priority, request.DueDate, UserId);
 
-                return NoContent();
+                return HandleRequest(addResult) ?? StatusCode(StatusCodes.Status201Created, addResult.Payload);
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace TaskManagement.Api.Controllers
                     .WithOperation("POST /tasks")
                     .AsString());
 
-                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+                return StatusCode(StatusCodes.Status500InternalServerError, LoggingConstants.InternalServerErrorMessage);
             }
         }
 
@@ -80,7 +80,7 @@ namespace TaskManagement.Api.Controllers
                     $"{nameof(pageSize)}: {pageSize}")
                     .AsString());
 
-                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+                return StatusCode(StatusCodes.Status500InternalServerError, LoggingConstants.InternalServerErrorMessage);
             }
         }
 
@@ -102,7 +102,7 @@ namespace TaskManagement.Api.Controllers
                     .WithParametres($"{nameof(id)}: {id}")
                     .AsString());
 
-                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+                return StatusCode(StatusCodes.Status500InternalServerError, LoggingConstants.InternalServerErrorMessage);
             }
         }
 
@@ -131,7 +131,7 @@ namespace TaskManagement.Api.Controllers
                     $"{nameof(request.Priority)}: {request.Priority}")
                     .AsString());
 
-                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+                return StatusCode(StatusCodes.Status500InternalServerError, LoggingConstants.InternalServerErrorMessage);
             }
         }
 
@@ -153,7 +153,7 @@ namespace TaskManagement.Api.Controllers
                     .WithParametres($"{nameof(id)}: {id}")
                     .AsString());
 
-                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+                return StatusCode(StatusCodes.Status500InternalServerError, LoggingConstants.InternalServerErrorMessage);
             }
         }
     }

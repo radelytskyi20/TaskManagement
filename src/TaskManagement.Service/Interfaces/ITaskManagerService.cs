@@ -8,19 +8,18 @@ namespace TaskManagement.Service.Interfaces
     /// </summary>
     public interface ITaskManagerService
     {
-
         /// <summary>
         /// Creates a new task with the specified details.
         /// </summary>
         /// <param name="title">The title of the task.</param>
-        /// <param name="description">The description of the task.</param>
-        /// <param name="status">The status of the task.</param>
-        /// <param name="priority">The priority of the task.</param>
-        /// <param name="dueDate">The due date of the task.</param>
+        /// <param name="description">The description of the task. This parameter is optional.</param>
+        /// <param name="status">The status of the task. This parameter is optional.</param>
+        /// <param name="priority">The priority of the task. This parameter is optional.</param>
+        /// <param name="dueDate">The due date of the task. This parameter is optional.</param>
         /// <param name="userId">The ID of the user associated with the task.</param>
-        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-        /// <returns>A task representing the asynchronous operation, with the ID of the newly created task.</returns>
-        Task<Guid> CreateAsync(string title, string? description, int? status,
+        /// <param name="cancellationToken">A token to monitor for cancellation requests. This parameter is optional.</param>
+        /// <returns>A task representing the asynchronous operation, with a payload result containing the ID of the created task.</returns>
+        Task<PayloadResult<Guid>> CreateAsync(string title, string? description, int? status,
             int? priority, DateTime? dueDate, Guid userId, CancellationToken cancellationToken = default);
 
         /// <summary>
