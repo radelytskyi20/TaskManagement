@@ -8,6 +8,7 @@ namespace TaskManagement.Service.Interfaces
     /// </summary>
     public interface ITaskManagerService
     {
+
         /// <summary>
         /// Creates a new task with the specified details.
         /// </summary>
@@ -18,8 +19,8 @@ namespace TaskManagement.Service.Interfaces
         /// <param name="dueDate">The due date of the task.</param>
         /// <param name="userId">The ID of the user associated with the task.</param>
         /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        Task CreateAsync(string title, string? description, int? status,
+        /// <returns>A task representing the asynchronous operation, with the ID of the newly created task.</returns>
+        Task<Guid> CreateAsync(string title, string? description, int? status,
             int? priority, DateTime? dueDate, Guid userId, CancellationToken cancellationToken = default);
 
         /// <summary>

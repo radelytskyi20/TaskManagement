@@ -24,7 +24,7 @@ namespace TaskManagement.Service.Implementations
         }
 
         /// <inheritdoc />
-        public async Task CreateAsync(string title, string? description, int? status, int? priority, DateTime? dueDate,
+        public async Task<Guid> CreateAsync(string title, string? description, int? status, int? priority, DateTime? dueDate,
             Guid userId, CancellationToken cancellationToken = default)
         {
             var task = new TaskEntity
@@ -37,7 +37,7 @@ namespace TaskManagement.Service.Implementations
                 UserId = userId
             };
 
-            await _taskRepository.CreateAsync(task, cancellationToken);
+            return await _taskRepository.CreateAsync(task, cancellationToken);
         }
 
         /// <inheritdoc />
@@ -54,7 +54,7 @@ namespace TaskManagement.Service.Implementations
                 return Result.Forbid();
             }
 
-            await _taskRepository.DeleteAsync(id, cancellationToken);
+            await _taskRepository.DeleteAsync(taskToDelete, cancellationToken);
             return Result.Success();
         }
 
