@@ -39,13 +39,7 @@ namespace TaskManagement.Persistence.Repositories
             var query = _dbContext.Tasks.AsNoTracking();
 
             // Apply filter options (e.g., status, priority, user id)
-            query = options.FilterOptions.Aggregate(query, (current, filterOptions) =>
-            {
-                foreach (var filter in filterOptions.Value)
-                    current = current.FilterTaskBy(filterOptions.Key, filter); //key: enum filterBy, value: string filter
-
-                return current;
-            });
+            query = query.FilterTaskBy(options.FilterOptions);
 
             // Apply filter range options (e.g., due date)
             query = options.FilterRangeOptions.Aggregate(query, (current, filterOptions) =>
@@ -59,9 +53,9 @@ namespace TaskManagement.Persistence.Repositories
                 return current;
             });
 
-            return query
-                .OrderTasksBy(options.OrderOption)
-                .Paginate(options.PageNum, options.PageSize);
+            query = query.OrderTasksBy(options.OrderOption);
+            query = query.Paginate(options.PageNum, options.PageSize);
+            return query;
         }
         public async Task<TaskEntity?> GetOneAsync(Guid id, CancellationToken cancellationToken = default)
         {
