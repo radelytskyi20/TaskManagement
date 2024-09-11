@@ -17,5 +17,9 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       
-      - name: Test
-        run: dotnet test ./TaskManagemet.sln --configuration Release --restore
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build
+      - name: Test with the dotnet CLI
+        run: dotnet test
