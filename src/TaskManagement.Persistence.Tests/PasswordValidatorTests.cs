@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Moq;
-using TaskManagement.Domain.Constants;
+using TaskManagement.Domain.Constants.Helpers;
 using TaskManagement.Domain.Contracts.Auth;
 using TaskManagement.Persistence.Helpers;
 

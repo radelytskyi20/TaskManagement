@@ -9,6 +9,7 @@ namespace TaskManagement.Service
         public static IServiceCollection AddService(this IServiceCollection services)
         {
             services.AddScoped<IUserManagerService, UserManagerService>();
+            services.AddScoped<ITaskManagerService, TaskManagerService>();
 
             return services;
         }

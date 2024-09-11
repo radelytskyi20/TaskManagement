@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TaskManagement.Domain.Constants;
+using TaskManagement.Domain.Constants.Data;
 using TaskManagement.Domain.Interfaces;
 using TaskManagement.Persistence.Helpers;
 using TaskManagement.Persistence.Interfaces;
@@ -26,6 +26,7 @@ namespace TaskManagement.Persistence
 
             //Repositories
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITaskRepository, TaskRepository>();
 
             return services;
         }

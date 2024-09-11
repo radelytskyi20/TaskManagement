@@ -1,4 +1,4 @@
-﻿using TaskManagement.Domain.Constants;
+﻿using TaskManagement.Domain.Constants.User;
 using TaskManagement.Domain.Contracts.Auth;
 using TaskManagement.Domain.Contracts.Common;
 using TaskManagement.Domain.Interfaces;
@@ -81,7 +81,7 @@ namespace TaskManagement.Service.Implementations
 
             if (user == null) return PayloadResult<TokenResponse>.Failure(UserManagerServiceErrors.UserNotFound);
 
-            var isValidPassword = _passwordHasher.VerifyPassword(user.PasswordHash, password);
+            var isValidPassword = _passwordHasher.VerifyPassword(password, user.PasswordHash);
             if (!isValidPassword) return PayloadResult<TokenResponse>.Failure(UserManagerServiceErrors.InvalidPassword);
 
             var token = _jwtProvider.GenerateJwtToken(user);
