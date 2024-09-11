@@ -276,7 +276,7 @@ Retrieves a paginated list of tasks with optional filters for status, priority, 
         "dueDate": "2024-09-11T08:26:46.326Z",
         "status": 0,
         "priority": 1,
-        "userId": 123
+        "userId": "b6a1e50d-5a8d-42c9-9227-3f9c7db40da4"
       },
       {
         "id": 2,
@@ -285,7 +285,7 @@ Retrieves a paginated list of tasks with optional filters for status, priority, 
         "dueDate": "2024-09-12T08:26:46.326Z",
         "status": 1,
         "priority": 2,
-        "userId": 123
+        "userId": "b6a1e50d-5a8d-42c9-9227-3f9c7db40da4"
       }
     ]
     ```
@@ -453,3 +453,24 @@ Deletes an existing task identified by its unique ID.
     
     **Content:** 
     `"An error has occurred while handling the request. All required information has been logged. Please contact an application administrator."`
+
+## Architecture and design choices
+- **API Design:** RESTful
+
+- **Architecture:** Clean Architecture
+
+- **Core Layer:** Contains domain entities and business logic.
+
+- **Service Layer:** Application services orchestrate business logic and interact with the domain.
+
+- **Infrastructure Layer:** Manages data access and persistence using Entity Framework Core.
+
+- **Presentation Layer:** Exposes API endpoints and handles HTTP requests.
+
+- **Testing Strategy:**
+
+    - **In-Memory Database:** Used for testing TaskManagerService due to its straightforward CRUD operations and repository dependency. This approach ensures the service functions correctly with actual database interactions in a lightweight, ephemeral database environment.
+    
+    - **Mocking:** Preferred for testing UserManagerService because of its more complex logic. Mocking is used to simulate database interactions (e.g., adding and retrieving users) without needing a full database setup, allowing focus on service logic and behavior.
+
+**Technologies**: MS Visual Studio 2022, .NET 8, ASP.NET Core, Moq, EF Core, AutoFixture, NUnit, MSSQL, Docker

@@ -37,7 +37,7 @@ namespace TaskManagement.Api.Controllers
                 var serviceResult = await _userManagerService.RegisterAsync(request.Username, request.Email, request.Password, cancellationToken);
                 if (serviceResult.Succeeded)
                 {
-                    return Ok();
+                    return StatusCode(StatusCodes.Status201Created);
                 }
 
                 return BadRequest(serviceResult.Errors);
@@ -73,7 +73,7 @@ namespace TaskManagement.Api.Controllers
                     return Ok(serviceResult.Payload);
                 }
 
-                return BadRequest(serviceResult.Errors);
+                return Unauthorized(serviceResult.Errors);
             }
             catch (Exception ex)
             {

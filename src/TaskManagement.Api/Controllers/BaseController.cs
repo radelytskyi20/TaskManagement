@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using TaskManagement.Domain.Constants.Task;
 using TaskManagement.Domain.Contracts.Common;
 
 namespace TaskManagement.Api.Controllers
@@ -25,6 +26,10 @@ namespace TaskManagement.Api.Controllers
             if (result.IsForbiden)
             {
                 return Forbid();
+            }
+            if (!result.Succeeded && result.Errors.Contains(TaskManagerServiceErrors.TaskNotFound))
+            {
+                return NotFound();
             }
             if (!result.Succeeded)
             {
